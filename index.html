@@ -17,19 +17,19 @@
   --bg:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f5; --ink:#0f1a2b; --muted:#5b6678; --line:#dde2ea;
   --accent:#0f9f8f; --accent-2:#d48b0b; --accent-3:#5b6cf0; --danger:#e0566b;
   --card-shadow:0 1px 2px rgba(15,26,43,.05),0 8px 24px rgba(15,26,43,.06);
-  --mock-bg:#f3f5f8; --mock-card:#ffffff; --mock-line:#e3e7ee;
+  --on-accent:#ffffff; --mock-bg:#f3f5f8; --mock-card:#ffffff; --mock-line:#e3e7ee;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0b1220; --surface:#111a2c; --surface-2:#172238; --ink:#e8edf5; --muted:#93a0b5; --line:#22304a;
   --accent:#2dd4bf; --accent-2:#f5b83d; --accent-3:#8b97ff; --danger:#ff7a8c;
   --card-shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.25);
-  --mock-bg:#0e1626; --mock-card:#16213a; --mock-line:#22304a;
+  --on-accent:#06201c; --mock-bg:#0e1626; --mock-card:#16213a; --mock-line:#22304a;
 }}
 :root[data-theme="dark"]{
   --bg:#0b1220; --surface:#111a2c; --surface-2:#172238; --ink:#e8edf5; --muted:#93a0b5; --line:#22304a;
   --accent:#2dd4bf; --accent-2:#f5b83d; --accent-3:#8b97ff; --danger:#ff7a8c;
   --card-shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.25);
-  --mock-bg:#0e1626; --mock-card:#16213a; --mock-line:#22304a;
+  --on-accent:#06201c; --mock-bg:#0e1626; --mock-card:#16213a; --mock-line:#22304a;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -40,12 +40,12 @@ a{color:inherit}
 
 /* nav */
 nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+nav .wrap{display:flex;align-items:center;justify-content:flex-end;height:64px;gap:16px}
 .brand{font-weight:800;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:10px}
 .brand i{width:10px;height:10px;border-radius:3px;background:var(--accent);display:inline-block}
 .links{display:flex;gap:8px;align-items:center}
-.links a{text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);transition:background .2s,color .2s,border-color .2s}
-.links a:hover,.links a:focus-visible{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.links a{text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;padding:8px 16px;border-radius:999px;background:color-mix(in srgb,var(--accent) 16%,var(--surface));border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);transition:background .2s,color .2s,border-color .2s}
+.links a:hover,.links a:focus-visible{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .theme{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;width:36px;height:36px;cursor:pointer;display:grid;place-items:center}
 @media (max-width:900px){.links a.hide-m{display:none}}
 @media (max-width:420px){.brand{font-size:14px}.links{gap:6px}.links a{padding:7px 11px;font-size:13px}}
@@ -64,12 +64,20 @@ h1{font-size:clamp(42px,6.4vw,80px);line-height:1.02;letter-spacing:-.035em;font
 h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-3));-webkit-background-clip:text;background-clip:text;color:transparent}
 .lead{font-size:19px;color:var(--muted);max-width:560px}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:12px;font-weight:700;text-decoration:none;font-size:15px;border:1px solid var(--line);background:var(--surface);transition:transform .15s}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:12px;font-weight:700;text-decoration:none;font-size:15px;border:1px solid color-mix(in srgb,var(--accent-3) 55%,transparent);background:color-mix(in srgb,var(--accent-3) 16%,var(--surface));color:var(--ink);transition:transform .15s,background .2s}
+.btn:hover{background:color-mix(in srgb,var(--accent-3) 30%,var(--surface))}
 .btn:hover{transform:translateY(-2px)}
-.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn.primary:hover{background:color-mix(in srgb,var(--accent) 85%,var(--ink))}
+.stats{display:grid;grid-template-columns:1fr 1fr 1.7fr;gap:14px;margin-top:52px}
+.stat span{display:block;line-height:1.45}
+.logos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.logo{height:48px;border-radius:10px;background:#fff;display:flex!important;align-items:center;justify-content:center;padding:8px;border:1px solid var(--line)}
+.logo img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.logo-blue{background:#2a3da6}
+.logo-text{font-weight:800;letter-spacing:.12em;color:#123a6b!important;font-size:13px!important}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-.stat strong{display:block;font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat strong{display:block;font-size:30px;color:var(--accent);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .stat span{font-size:12.5px;color:var(--muted);font-weight:600}
 .hero-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--card-shadow);position:relative}
 .profile{display:flex;align-items:center;gap:14px;margin-bottom:18px}
@@ -79,7 +87,7 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-3));-webkit-
 .hero-card svg{width:100%;height:auto;display:block}
 .chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
 .chip{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
-@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:28px}.statement{order:-1;padding-left:20px}.stats{grid-template-columns:repeat(2,1fr)}.hero{padding-top:56px}}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:28px}.statement{order:-1;padding-left:20px}.stats{grid-template-columns:1fr 1fr}.clients-stat{grid-column:1/-1}.hero{padding-top:56px}}
 
 /* sections */
 section{padding:84px 0;scroll-margin-top:64px}
@@ -159,7 +167,8 @@ dialog::backdrop{background:rgba(8,12,22,.6);backdrop-filter:blur(4px)}
 .skill{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
 .skill h4{font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .skill h4 i{width:10px;height:10px;border-radius:3px}
-.bar{margin-bottom:10px}
+.tool-chips{display:flex;flex-wrap:wrap;gap:8px}
+.tool-chips span{font-size:13.5px;font-weight:700;padding:6px 12px;border-radius:999px;background:color-mix(in srgb,var(--c) 14%,transparent);border:1px solid color-mix(in srgb,var(--c) 40%,transparent)}
 .bar div{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600}
 .bar span{display:block;height:6px;border-radius:6px;background:var(--surface-2);margin-top:5px;overflow:hidden}
 .bar span em{display:block;height:100%;border-radius:6px;width:0;transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
@@ -178,8 +187,8 @@ dialog::backdrop{background:rgba(8,12,22,.6);backdrop-filter:blur(4px)}
 .contact{background:var(--ink);color:var(--bg);border-radius:28px;padding:56px;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center}
 .contact h2{color:var(--bg)}
 .contact p{opacity:.75;margin-top:10px}
-.contact .cta .btn{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 30%,transparent)}
-.contact .cta .btn.primary{background:var(--bg);color:var(--ink)}
+.contact .cta .btn{background:color-mix(in srgb,var(--accent-3) 22%,transparent);color:var(--bg);border-color:color-mix(in srgb,var(--accent-3) 60%,transparent)}
+.contact .cta .btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 @media (max-width:820px){.contact{grid-template-columns:1fr;padding:32px}}
 footer{padding:36px 0 48px;color:var(--muted);font-size:13px;text-align:center}
 
@@ -202,15 +211,24 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;text-align:center}
 .about-text .kicker{font-size:13px;font-weight:800;color:var(--accent-2);text-transform:uppercase;letter-spacing:.12em}
 .about-text h2{margin-bottom:18px}
 .about-text p{font-size:17px;color:var(--muted);margin-bottom:14px;max-width:640px}
-.race{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);margin-top:56px;position:relative}
+.race-title{font-size:clamp(24px,3vw,30px);letter-spacing:-.02em;margin-top:64px}
+.race{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);margin-top:24px;position:relative}
 .race::before{content:"";position:absolute;left:0;right:0;top:15px;height:4px;border-radius:4px;background:repeating-linear-gradient(90deg,var(--accent) 0 18px,transparent 18px 28px);opacity:.6}
-.race li{position:relative;padding:40px 14px 0 0}
+.race li{position:relative;padding:40px 24px 0 0}
 .race li::before{content:"";position:absolute;top:6px;left:0;width:22px;height:22px;border-radius:50%;background:var(--bg);border:4px solid var(--accent);box-sizing:border-box}
 .race li.next::before{border-style:dashed;border-color:var(--accent-2)}
 .race .km{display:block;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
 .race li.next .km{color:var(--accent-2)}
 .race b{display:block;font-size:15.5px;margin:2px 0}
 .race small{font-size:13.5px;color:var(--muted);display:block;line-height:1.45}
+.dots i{font-style:normal;animation:blink 1.4s infinite}
+.dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.15}40%{opacity:1}}
+.loadbar{display:block;height:6px;border-radius:6px;background:var(--surface-2);overflow:hidden;margin:8px 0 6px;max-width:220px}
+.loadbar em{display:block;height:100%;width:40%;border-radius:6px;background:linear-gradient(90deg,var(--accent-2),var(--accent));animation:load 1.8s ease-in-out infinite}
+@keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+.race li.next::before{animation:spin 3s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 @media (max-width:900px){.about-grid{grid-template-columns:1fr;gap:32px}.ring{width:200px;height:200px}
   .race{grid-template-columns:1fr;gap:18px}.race::before{left:9px;right:auto;top:0;bottom:0;width:4px;height:auto;background:repeating-linear-gradient(180deg,var(--accent) 0 14px,transparent 14px 22px)}
   .race li{padding:0 0 0 40px}.race li::before{top:2px;left:0}}
@@ -257,13 +275,13 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;text-align:center}
 
 <nav aria-label="Navegação principal">
   <div class="wrap">
-    <a href="#top" class="brand"><i></i>Maria Clara Bazilio</a>
+    <span></span>
     <div class="links">
-      <a href="#sobre" class="hide-m">Sobre</a>
+      <a href="#sobre">Sobre</a>
       <a href="#entregas" class="hide-m">Entregas</a>
-      <a href="#dashboards">Dashboards</a>
       <a href="#experiencia" class="hide-m">Experiência</a>
-      <a href="#contato" class="hide-m">Contato</a>
+      <a href="#skills" class="hide-m">Ferramentas</a>
+      <a href="#contato">Contato</a>
       <button class="theme" id="theme" aria-label="Alternar tema claro/escuro" title="Tema claro/escuro">◐</button>
       <button class="theme a11y-btn" id="a11yBtn" aria-label="Opções de acessibilidade" aria-expanded="false" aria-controls="a11yPanel" title="Acessibilidade">
         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><circle cx="12" cy="4" r="2"/><path d="M4 7.5c2.6.8 5.3 1.2 8 1.2s5.4-.4 8-1.2l.5 1.9c-2.1.7-4.3 1.1-6.5 1.3v3.4l2.3 7.4-1.9.6L12 15.4l-2.4 6.7-1.9-.6L10 14.1v-3.4c-2.2-.2-4.4-.6-6.5-1.3z"/></svg>
@@ -289,12 +307,11 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;text-align:center}
   <div class="wrap">
     <div class="hero-grid">
       <div class="reveal">
-        <span class="eyebrow"><b></b>Analytics Engineer · OWSE</span>
-        <p class="hello">Olá, eu sou a</p>
+        <p class="hello">Olá, me chamo</p>
         <p class="hero-name">Maria Clara Bazilio</p>
-        <p class="lead">Faço a ponta a ponta do dado: do BPMN e do ETL (Apache Hop, dbt) à orquestração (Jenkins, Dagster), passando por views SQL de self-service e chegando a dashboards em Power BI usados por operações portuárias, logísticas e financeiras.</p>
+        <p class="lead">Profissional full stack em dados: faço todo o processo de ponta a ponta, da modelagem e extração do dado à orquestração e à disponibilização visual. Entrego pipelines robustos, views SQL confiáveis e dashboards que resolvem as dores dos usuários.</p>
         <div class="cta">
-          <a class="btn primary" href="#dashboards">Ver dashboards →</a>
+          <a class="btn primary" href="#entregas">Ver entregas →</a>
           <a class="btn" href="https://github.com/mariabazilio" target="_blank" rel="noopener">GitHub</a>
           <a class="btn" href="#contato">Contato</a>
         </div>
@@ -304,10 +321,16 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;text-align:center}
       </div>
     </div>
     <div class="stats reveal">
-      <div class="stat"><strong data-count="35">0</strong><span>dashboards entregues</span></div>
-      <div class="stat"><strong data-count="280">0</strong><span>páginas de relatório</span></div>
-      <div class="stat"><strong data-count="5000">0</strong><span>visuais construídos</span></div>
-      <div class="stat"><strong data-count="3">0</strong><span>grandes clientes</span></div>
+      <div class="stat"><strong data-count="55">0</strong><span>dashboards entregues, impactando positivamente times de diversas áreas</span></div>
+      <div class="stat"><strong data-count="100">0</strong><span>views construídas em SQL, reduzindo em 75% o esforço manual</span></div>
+      <div class="stat clients-stat"><strong data-count="3">0</strong><span>grandes clientes</span>
+        <div class="logos">
+          <span class="logo"><img src="img/login.png" alt="Log-In Logística Integrada"></span>
+          <span class="logo"><img src="img/kingship.png" alt="Kingship"></span>
+          <span class="logo logo-blue"><img src="img/tecmar.png" alt="Tecmar Transporte e Logística"></span>
+          <span class="logo logo-text">LOGMAR</span>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -321,18 +344,17 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;text-align:center}
     <div class="about-text reveal">
       <div class="kicker">Sobre mim</div>
       <h2>Dados são uma corrida de longa distância</h2>
-      <p>Sou corredora amadora, e foi correndo que entendi como gosto de trabalhar. Ninguém completa uma prova longa no primeiro quilômetro. O que leva até a linha de chegada é treino, constância e paciência para manter o ritmo quando a subida aparece. Com dados é igual: um bom indicador começa muito antes do dashboard, quando paro para entender a dor de quem vai usá-lo.</p>
+      <p>Sou estudante de Sistemas de Informação na UFF e corredora amadora, e foi correndo que entendi como gosto de trabalhar. Ninguém completa uma prova longa no primeiro quilômetro. O que leva até a linha de chegada é treino, constância e paciência para manter o ritmo quando a subida aparece. Com dados é igual: um bom indicador começa muito antes do dashboard, quando paro para entender a dor de quem vai usá-lo.</p>
       <p>Sou focada e gosto de verdade do que faço. Gosto de pegar um processo manual e cansativo e transformá-lo em algo automático, confiável e fácil de ler. Hoje cuido de todas as etapas do dado na OWSE, para empresas de logística e portos: entendo o processo, construo os pipelines, modelo as views e entrego o painel.</p>
       <p>Comecei analisando carteiras de crédito no Excel. Hoje conduzo integrações, migrações de pipelines e dashboards usados por times inteiros. E sigo treinando para os próximos quilômetros.</p>
     </div>
   </div>
   <div class="wrap">
+    <h3 class="race-title reveal">Trajetória</h3>
     <ol class="race reveal" aria-label="Minha trajetória como uma corrida">
-      <li><span class="km">Largada</span><b>2023 · Unicred</b><small>Excel, KPIs de crédito e Power Automate</small></li>
-      <li><span class="km">Km 5</span><b>2024 · OWSE</b><small>Primeiros dashboards em Power BI e views SQL</small></li>
-      <li><span class="km">Km 10</span><b>Integrações ponta a ponta</b><small>Apache Hop + Jenkins: Netship → Omie</small></li>
-      <li><span class="km">Km 21</span><b>Analytics Engineering</b><small>Migração de pipelines para dbt + Dagster</small></li>
-      <li class="next"><span class="km">Próximos km</span><b>UFF · 2028</b><small>Formatura em Sistemas de Informação, e seguir evoluindo</small></li>
+      <li><span class="km">Largada · 2023</span><b>Unicred Coalizão</b><small>Crédito, KPIs em Excel e automações com Power Automate</small></li>
+      <li><span class="km">2024 — hoje</span><b>OWSE</b><small>Analytics Engineer: pipelines, views SQL e dashboards para logística e portos</small></li>
+      <li class="next"><span class="km">Próximos km</span><b>Carregando<span class="dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span></b><span class="loadbar" aria-hidden="true"><em></em></span><small>Sigo treinando para os próximos desafios</small></li>
     </ol>
   </div>
 </section>
@@ -361,8 +383,8 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;text-align:center}
       <article class="win reveal">
         <div class="win-ico" aria-hidden="true">🔗</div>
         <span class="win-badge">Apache Hop · Jenkins</span>
-        <h3>Integração Netship → Omie (Kingship)</h3>
-        <p>Conduzi o projeto inteiro, do entendimento da dor do usuário à entrega final: integração automática das notas entre os sistemas Netship e Omie, com Apache Hop e orquestração no Jenkins.</p>
+        <h3>Integração de notas fiscais: Netship → Omie</h3>
+        <p>Na Kingship, conduzi o projeto inteiro, do entendimento da dor do usuário à entrega final: integração automática das notas fiscais do sistema Netship para o sistema Omie, com Apache Hop e orquestração no Jenkins.</p>
         <div class="win-metric"><strong>100%</strong> do esforço manual eliminado</div>
       </article>
       <article class="win reveal">
@@ -392,25 +414,6 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;text-align:center}
   </div>
 </section>
 
-<section id="dashboards">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div><div class="kicker">Portfólio</div><h2>Dashboards que desenvolvi</h2></div>
-      <div class="filters" id="filters"></div>
-    </div>
-    <div class="grid" id="grid"></div>
-    <p class="note">🔒 Os painéis atendem clientes reais, por isso as miniaturas são recriações com <b>dados fictícios</b>. As páginas e os tipos de visual seguem a estrutura original de cada relatório.</p>
-  </div>
-</section>
-
-<dialog id="modal">
-  <button class="close" aria-label="Fechar" onclick="this.closest('dialog').close()">✕</button>
-  <div class="m-thumb" id="mThumb"></div>
-  <div class="m-body">
-    <div><div class="dash tag" id="mTag" style="all:unset;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em"></div><h3 id="mTitle"></h3><p id="mDesc"></p><h5>Destaques</h5><ul id="mHigh"></ul></div>
-    <div><h5 style="margin-top:0">Páginas do relatório</h5><div class="pages" id="mPages"></div><h5>Stack</h5><div class="pages" id="mStack"></div></div>
-  </div>
-</dialog>
 
 <section id="experiencia">
   <div class="wrap">
@@ -488,7 +491,7 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13px;text-align:center}
 
 </main>
 
-<footer>© <span id="yr"></span> Maria Clara Bazilio · Feito com HTML, SVG e muitos dados fictícios.</footer>
+<footer>© <span id="yr"></span> Maria Clara Bazilio · Todos os direitos reservados.</footer>
 
 <script>
 // Para exibir o botão do LinkedIn, coloque a URL do seu perfil aqui:
@@ -505,211 +508,7 @@ themeBtn.onclick = () => {
     : matchMedia('(prefers-color-scheme: dark)').matches;
   document.documentElement.dataset.theme = dark ? 'light' : 'dark';
   try { localStorage.setItem('theme', document.documentElement.dataset.theme); } catch(e) {}
-  renderAll();
 };
-
-// ---------- seeded random ----------
-function rng(seed){ let s = 0; for (const c of seed) s = (s*31 + c.charCodeAt(0)) >>> 0; return () => ((s = (s*1664525 + 1013904223) >>> 0) / 4294967296); }
-
-// ---------- dashboards data ----------
-const DASHES = [
-  { id:'comercial', title:'Dashboard Comercial TVV', area:'Comercial', client:'Terminal portuário',
-    desc:'Painel comercial do terminal de contêineres: retenção de clientes, raio X por cliente, navio e contêiner, ranking de receita operacional líquida e perfil de carga (NCM).',
-    pages:['Sumário','Painel de Retenção','Retenção por Cliente','Retenção por Navio','Retenção × Meta','Raio X Cliente','Raio X Navio','Raio X Contêiner (Imp/Exp)','Ranking ROL','Perfil do Cliente','Book Armador','Matriz de Performance','NCM','NS Desova e Ova'],
-    high:['Mais de 25 páginas e cerca de 500 visuais, com navegação por sumário','Retenção de clientes e navios comparada com a meta','Matriz de performance por armador e tipo de contêiner (20\'/40\', cheio/vazio)'],
-    stack:['Power BI','DAX','SQL Server','dbt'], layout:['kpi4','stack100','donut','hbar'], featured:true, pagesN:27 },
-  { id:'armazem3d', title:'Ocupação do Armazém — 3D', area:'Portos & Logística', client:'Terminal portuário',
-    desc:'Dashboard 3D da ocupação de paletes, construído no Power BI com HTML e CSS. O time vê na tela onde há espaço livre sem precisar ir até os corredores.',
-    pages:['Início','Ocupação do Armazém','Alimento × IMO × Climatizada','Carga Solta e Varanda','Tabela Estoque','Ocupação 3D'],
-    high:['Visual 3D feito com HTML e CSS dentro do Power BI','Gauges de ocupação por tipo de carga','Menos tempo para encontrar espaço disponível'],
-    stack:['Power BI','HTML','CSS','SQL'], layout:['kpi3','grid3d','gauge'], pagesN:7 },
-  { id:'p360', title:'Painel 360 — Navios e Contêineres', area:'Portos & Logística', client:'Operação portuária',
-    desc:'Visão consolidada de importação e exportação por navio, com métricas de tempo de permanência de contêineres no pátio para identificar gargalos.',
-    pages:['Navios e Contêineres — Importação','Navios e Contêineres — Exportação','Navios — Processos'],
-    high:['Métrica de dwell time dos contêineres no pátio','Visões espelhadas de importação e exportação','Detalhamento por processo'],
-    stack:['Power BI','SQL Server','Jenkins'], layout:['kpi4','hbar','donut'], pagesN:3 },
-  { id:'kingproc', title:'Kingship — Processos Financeiros', area:'Financeiro', client:'Kingship',
-    desc:'Gestão de invoices (SOA), master a pagar e house a receber, com relatórios comparativos e um simulador de pagamentos.',
-    pages:['Início','Invoices — SOA','Master — A Pagar','House — A Receber','Relatório Master','Relatório House','Comparativo Master','Comparativo House','Simulador de Pagamentos'],
-    high:['Simulador de pagamentos interativo','Conciliação master × house','Combo de linha e coluna empilhada para o fluxo'],
-    stack:['Power BI','DAX','PostgreSQL'], layout:['kpi4','combo','table'], featured:true, pagesN:10 },
-  { id:'fluxo', title:'Fluxo de Caixa — KingShip Line', area:'Financeiro', client:'Kingship',
-    desc:'Fluxo de caixa por categoria e por dia, com navegação por page navigator e cards modernos.',
-    pages:['Menu','Principal','Categoria','Diário'],
-    high:['Visão diária e por categoria','Combo de entradas, saídas e saldo','Navegação moderna com page navigator'],
-    stack:['Power BI','SQL'], layout:['kpi3','line','hbar'], pagesN:7 },
-  { id:'contest', title:'Contestação de Cobrança', area:'Financeiro', client:'Log-In Logística',
-    desc:'Acompanha as contestações de cobrança com visão gerencial semanal, indicadores gerais e gestão de planos de ação.',
-    pages:['Início','Visão Gerencial — Semanal','Detalhamento','Indicadores — Geral','Gestão dos Planos de Ação','Indicadores — Planos de Ação'],
-    high:['Regras dos indicadores documentadas com a área','Ciclo semanal de acompanhamento','Gestão dos planos de ação no próprio painel'],
-    stack:['Power BI','SQL Server','dbt'], layout:['kpi4','column','donut'], pagesN:6 },
-  { id:'gerot', title:'Indicadores Gerot — SLAs', area:'Portos & Logística', client:'Gerência de Operações',
-    desc:'Central de SLAs operacionais: programação de pátio, mapa, intercâmbio, armazém, carga geral, aderência de contrato e fechamento de navio.',
-    pages:['Página inicial','Orientações','SLA Programação Pátio','SLA Mapa','SLA Intercâmbio','SLA Armazém','SLA CG','Aderência de Contrato','Relato de Cliente','Contestação de Cobrança','Fechamento de Navio','Ovação','Ciclo de vida contratual'],
-    high:['16 páginas de SLA com o mesmo padrão visual','29 combos de realizado × meta','Página de orientações para o usuário'],
-    stack:['Power BI','SQL'], layout:['kpi4','combo','pie'], pagesN:16 },
-  { id:'ns', title:'Painel Gerot — Nível de Serviço', area:'Portos & Logística', client:'Gerência de Operações',
-    desc:'Nível de serviço de frete, canhotos, aprovação de OS de mão de obra e fornecedores, com visões de aging e tooltips personalizados.',
-    pages:['Menu','NS Frete','NS Frete — Aging','NS Canhoto','NS Canhoto — Aging','Aprovação de OS MDO','% Avulsas MDO','NS Fornecedores','Relatório Gerencial'],
-    high:['Visões de aging para frete e canhoto','Tooltips de página personalizados','Mais de 120 filtros organizados em submenus'],
-    stack:['Power BI','SQL'], layout:['kpi4','donut','column'], pagesN:25 },
-  { id:'people', title:'People Analytics', area:'Pessoas', client:'RH corporativo',
-    desc:'Diversidade, turnover geral e por diretoria, saúde ocupacional e processos de gente: recrutamento, treinamentos, clima e PDI.',
-    pages:['Início','Diversidade','Turnover Geral','Turnover — Diretoria','Saúde','Recrutamento e Seleção','Treinamentos','Pesquisa de Clima','Ciclo de Gente e PDI'],
-    high:['Turnover aberto por diretoria','Indicadores de diversidade','Jornada completa do colaborador'],
-    stack:['Power BI','Excel','SQL'], layout:['kpi3','pie','combo'], pagesN:9 },
-  { id:'billing', title:'Relatórios Billing', area:'Financeiro', client:'Log-In Logística',
-    desc:'Hub de faturamento: emissão de NF, integração com o SAP, boletos pendentes, gestão de contratos e itens em aberto em relação à meta.',
-    pages:['Home','Emissão PO Acessório','Relatório de Clientes','Memorial','Emissão × Envio NF','Boletos Pendentes','Gestão de Contratos','Integração SAP','Notas × Monit','Itens em aberto — Meta'],
-    high:['Mais de 20 relatórios operacionais em um só lugar','Validação da integração com o SAP','Substitui extrações manuais'],
-    stack:['Power BI','SQL Server','SAP'], layout:['kpi3','table','hbar'], pagesN:22 },
-  { id:'ciclo', title:'Ciclo de Vida Contratual', area:'Comercial', client:'Log-In Logística',
-    desc:'Gestão de contratos do início ao vencimento, com panorama de contratos e serviços e alertas de renovação.',
-    pages:['Home','Gestão de Contratos','Panorama — Contratos','Panorama — Serviços'],
-    high:['Linha do tempo de vigência dos contratos','Filtros por cliente, serviço e status','Panorama executivo'],
-    stack:['Power BI','SQL'], layout:['kpi3','gantt','column'], pagesN:5 },
-  { id:'cluster', title:'Clusterização de Clientes', area:'Comercial', client:'Terminal portuário',
-    desc:'Segmentação de clientes de importação, exportação e serviço por comportamento de volume e receita.',
-    pages:['Sumário','Importação','Exportação','Serviço'],
-    high:['Clusters por perfil de cliente','Treemap de participação','Visões comparativas entre clusters'],
-    stack:['Power BI','Python','SQL'], layout:['kpi3','treemap','hbar'], pagesN:8 },
-  { id:'armtvv', title:'Painel Armazém TVV', area:'Portos & Logística', client:'Terminal portuário',
-    desc:'Monitor operacional do armazém: desovas, processos, conferência no NAVIS, fila de serviços, gate e retiradas.',
-    pages:['Monitora Desovas','Monitor de Processos','NAVIS Conferência','Fila de Serviços','Monitora Gate','Painel de Retiradas','Monitora Prog. SARA'],
-    high:['Painel operacional para TV','Gauges de capacidade','Fila de serviços em tempo quase real'],
-    stack:['Power BI','SQL','Jenkins'], layout:['kpi4','gauge','table'], pagesN:15 },
-  { id:'kingestr', title:'Kingship — Estratégia', area:'Comercial', client:'Kingship',
-    desc:'Inteligência de mercado sobre importadores e exportadores, com comparativos entre períodos e uma visão estratégica.',
-    pages:['Menu','Importadores','Importadores (comparativo)','Exportadores','Exportadores (comparativo)','Estratégico','Relatórios'],
-    high:['Comparativos período × período','Ranking de importadores e exportadores','Página executiva estratégica'],
-    stack:['Power BI','SQL'], layout:['kpi4','column','hbar'], pagesN:8 },
-  { id:'despesas', title:'Despesas Corporativas', area:'Financeiro', client:'Gerência corporativa',
-    desc:'Acompanhamento de despesas corporativas por centro de custo, com tendência mensal e comparação com o orçamento.',
-    pages:['Visão Geral','Detalhamento'],
-    high:['Tendência mensal','Comparação com o orçamento','Ranking por centro de custo'],
-    stack:['Power BI','SQL'], layout:['kpi4','line','donut'], pagesN:2 },
-  { id:'portal', title:'Display Painel Report', area:'Comercial', client:'Log-In Logística',
-    desc:'Portal que organiza o catálogo de relatórios da empresa em mais de 25 áreas, como comercial, financeiro, frota, RH, intermodal e produto.',
-    pages:['KPIs','Início','Comercial','Contas a Pagar','Contas a Receber','Custos Operacionais','Equipamentos','Financeiro','Frota','Gestão','Intermodal','Produto','RH'],
-    high:['Ponto de entrada único para todo o BI','Quase 300 botões de navegação','Catálogo de fontes de dados'],
-    stack:['Power BI','Report Server'], layout:['tiles'], pagesN:27 },
-];
-const AREAS = ['Todos', ...new Set(DASHES.map(d => d.area))];
-const areaColor = a => ({ 'Comercial':css('--accent-3'), 'Portos & Logística':css('--accent'), 'Financeiro':css('--accent-2'), 'Pessoas':css('--danger') }[a] || css('--accent'));
-
-// ---------- mock renderer ----------
-function mock(d, W=480, H=300){
-  const r = rng(d.id), c1 = areaColor(d.area), c2 = css('--accent-2'), c3 = css('--accent-3'), ac = css('--accent');
-  const card = css('--mock-card'), line = css('--mock-line'), mu = css('--muted'), ink = css('--ink');
-  const pal = [c1, c2 === c1 ? ac : c2, c3 === c1 ? ac : c3, css('--danger')];
-  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">`;
-  // header
-  s += `<rect x="0" y="0" width="${W}" height="30" fill="${card}"/><rect x="0" y="29" width="${W}" height="1" fill="${line}"/>`;
-  s += `<rect x="12" y="10" width="10" height="10" rx="3" fill="${c1}"/><text x="30" y="19.5" font-size="10" font-weight="700" fill="${ink}" font-family="Manrope">${d.title.replace(/&/g,'&amp;')}</text>`;
-  for (let i=0;i<3;i++) s += `<rect x="${W-120+i*36}" y="9" width="30" height="12" rx="6" fill="none" stroke="${line}"/>`;
-  const box = (x,y,w,h) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="${card}" stroke="${line}"/>`;
-  const pad = 10; let y = 40;
-  const blocks = d.layout;
-  if (blocks[0] === 'tiles'){
-    const cols=5, rows=4, tw=(W-pad*(cols+1))/cols, th=(H-y-pad*(rows+1))/rows;
-    for(let i=0;i<rows;i++)for(let j=0;j<cols;j++){const x=pad+j*(tw+pad),yy=y+pad/2+i*(th+pad);s+=box(x,yy,tw,th);s+=`<rect x="${x+8}" y="${yy+8}" width="12" height="12" rx="3" fill="${pal[(i+j)%3]}" opacity=".85"/><rect x="${x+8}" y="${yy+th-16}" width="${tw*0.6}" height="5" rx="2" fill="${line}"/>`;}
-    return s+'</svg>';
-  }
-  // KPI row
-  const nk = blocks[0]==='kpi4'?4:3, kw=(W-pad*(nk+1))/nk, kh=46;
-  for(let i=0;i<nk;i++){const x=pad+i*(kw+pad);s+=box(x,y,kw,kh);
-    s+=`<rect x="${x+10}" y="${y+10}" width="${kw*0.4}" height="5" rx="2" fill="${line}"/>`;
-    const val = (r()*900+100).toFixed(0)+['','%','k','d'][Math.floor(r()*4)];
-    s+=`<text x="${x+10}" y="${y+36}" font-size="17" font-weight="800" fill="${i===0?c1:ink}" font-family="Manrope">${val}</text>`;
-    const up=r()>.3;s+=`<text x="${x+kw-10}" y="${y+36}" text-anchor="end" font-size="9" font-weight="700" fill="${up?ac:css('--danger')}" font-family="Manrope">${up?'▲':'▼'} ${(r()*12+1).toFixed(1)}%</text>`;}
-  y += kh + pad;
-  const rest = blocks.slice(1), ch = H - y - pad;
-  const widths = rest.length===1?[1]:rest.length===2?[0.58,0.42]:[0.4,0.3,0.3];
-  let x = pad;
-  rest.forEach((t,i)=>{
-    const w=(W-pad*(rest.length+1))*widths[i]; s+=box(x,y,w,ch);
-    s+=`<rect x="${x+10}" y="${y+10}" width="${w*0.45}" height="5" rx="2" fill="${line}"/>`;
-    s+=chart(t,x+10,y+24,w-20,ch-34,r,pal,line,mu,card); x+=w+pad;
-  });
-  return s+'</svg>';
-}
-function chart(t,x,y,w,h,r,pal,line,mu,card){
-  let s='';
-  if(t==='column'||t==='stack100'||t==='combo'){
-    const n=t==='stack100'?8:10, bw=w/n*0.62, pts=[];
-    for(let i=0;i<n;i++){const bx=x+i*(w/n)+(w/n-bw)/2;
-      if(t==='stack100'){let yy=y;[.45,.35,.2].forEach((p,k)=>{const hh=h*(p+(r()-.5)*.15);s+=`<rect x="${bx}" y="${yy}" width="${bw}" height="${Math.max(0,Math.min(hh,y+h-yy))}" fill="${pal[k]}" opacity="${1-k*.18}"/>`;yy+=hh;});}
-      else{const hh=h*(0.25+r()*0.7);s+=`<rect x="${bx}" y="${y+h-hh}" width="${bw}" height="${hh}" rx="2" fill="${pal[0]}" opacity=".9"/>`;pts.push([bx+bw/2,y+h-hh*(0.6+r()*0.5)]);}
-    }
-    if(t==='combo'){s+=`<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${pal[1]}" stroke-width="2.2" stroke-linejoin="round"/>`;pts.forEach(p=>s+=`<circle cx="${p[0]}" cy="${p[1]}" r="2.6" fill="${card}" stroke="${pal[1]}" stroke-width="1.6"/>`);}
-  } else if(t==='hbar'){
-    const n=6, bh=h/n*0.6; for(let i=0;i<n;i++){const ww=w*(0.95-i*0.13-r()*0.06);s+=`<rect x="${x}" y="${y+i*(h/n)}" width="${ww}" height="${bh}" rx="2" fill="${pal[0]}" opacity="${1-i*0.11}"/>`;}
-  } else if(t==='line'){
-    const n=14; let p1=[],p2=[]; let v=.5,v2=.4;
-    for(let i=0;i<n;i++){v=Math.min(.95,Math.max(.1,v+(r()-.45)*.2));v2=Math.min(.95,Math.max(.05,v2+(r()-.5)*.18));p1.push([x+i*w/(n-1),y+h*(1-v)]);p2.push([x+i*w/(n-1),y+h*(1-v2)]);}
-    s+=`<polygon points="${x},${y+h} ${p1.map(p=>p.join(',')).join(' ')} ${x+w},${y+h}" fill="${pal[0]}" opacity=".14"/>`;
-    s+=`<polyline points="${p1.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${pal[0]}" stroke-width="2.2"/>`;
-    s+=`<polyline points="${p2.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${pal[1]}" stroke-width="1.8" stroke-dasharray="4 3"/>`;
-  } else if(t==='donut'||t==='pie'){
-    const cx=x+w/2, cy=y+h/2, R=Math.min(w,h)/2-2, ri=t==='donut'?R*0.6:0; let a=-Math.PI/2; const parts=[.42,.28,.18,.12];
-    parts.forEach((p,k)=>{const a2=a+p*Math.PI*2, la=p>.5?1:0;
-      const P=(ang,rad)=>[cx+rad*Math.cos(ang),cy+rad*Math.sin(ang)].map(v=>v.toFixed(1)).join(',');
-      s+= ri? `<path d="M${P(a,R)} A${R},${R} 0 ${la} 1 ${P(a2,R)} L${P(a2,ri)} A${ri},${ri} 0 ${la} 0 ${P(a,ri)} Z" fill="${pal[k]}" stroke="${card}" stroke-width="2"/>`
-             : `<path d="M${cx},${cy} L${P(a,R)} A${R},${R} 0 ${la} 1 ${P(a2,R)} Z" fill="${pal[k]}" stroke="${card}" stroke-width="2"/>`; a=a2;});
-    if(ri) s+=`<text x="${cx}" y="${cy+5}" text-anchor="middle" font-size="13" font-weight="800" fill="${css('--ink')}" font-family="Manrope">42%</text>`;
-  } else if(t==='gauge'){
-    const cx=x+w/2, cy=y+h*0.8, R=Math.min(w/2,h*0.75)-2, v=0.55+r()*0.35;
-    const arc=(f,col,sw)=>{const a1=Math.PI, a2=Math.PI+Math.PI*f;return `<path d="M${cx+R*Math.cos(a1)},${cy+R*Math.sin(a1)} A${R},${R} 0 0 1 ${cx+R*Math.cos(a2)},${cy+R*Math.sin(a2)}" fill="none" stroke="${col}" stroke-width="${sw}" stroke-linecap="round"/>`;};
-    s+=arc(1,line,12)+arc(v,pal[0],12);
-    s+=`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="16" font-weight="800" fill="${css('--ink')}" font-family="Manrope">${Math.round(v*100)}%</text>`;
-  } else if(t==='table'){
-    const rows=7, rh=h/rows; for(let i=0;i<rows;i++){const yy=y+i*rh; if(i===0) s+=`<rect x="${x}" y="${yy}" width="${w}" height="${rh-2}" rx="3" fill="${pal[0]}" opacity=".18"/>`;
-      [0.05,0.4,0.7].forEach((cx,k)=>s+=`<rect x="${x+w*cx}" y="${yy+rh/2-2.5}" width="${w*(k===0?0.28:0.18)*(0.6+r()*0.4)}" height="5" rx="2" fill="${i===0?pal[0]:line}"/>`);
-      const st=r(); s+=`<circle cx="${x+w*0.95}" cy="${yy+rh/2}" r="3" fill="${i===0?'none':st>.7?css('--danger'):st>.4?pal[1]:pal[0]}"/>`;}
-  } else if(t==='grid3d'){
-    const cols=9, rows=5, cw=w/cols, rh=h/rows;
-    for(let i=0;i<rows;i++)for(let j=0;j<cols;j++){const occ=r(); const bx=x+j*cw+2+(rows-i)*1.2, by=y+i*rh+2;
-      const col= occ>.75?css('--danger'):occ>.35?pal[0]:line;
-      s+=`<rect x="${bx}" y="${by}" width="${cw-5}" height="${rh-5}" rx="2" fill="${col}" opacity="${occ>.35?.9:1}"/><rect x="${bx+2}" y="${by-2}" width="${cw-5}" height="2" fill="${col}" opacity=".45"/>`;}
-  } else if(t==='treemap'){
-    const a=[[0,0,.55,.6],[.55,0,.45,.35],[.55,.35,.45,.25],[0,.6,.35,.4],[.35,.6,.35,.4],[.7,.6,.3,.4]];
-    a.forEach((q,k)=>s+=`<rect x="${x+q[0]*w+1}" y="${y+q[1]*h+1}" width="${q[2]*w-2}" height="${q[3]*h-2}" rx="3" fill="${pal[k%4]}" opacity="${1-(k>3?.35:k*.1)}"/>`);
-  } else if(t==='gantt'){
-    const n=6, bh=h/n*0.55; for(let i=0;i<n;i++){const st=r()*w*0.45, ln=w*(0.3+r()*0.45);s+=`<rect x="${x+st}" y="${y+i*(h/n)}" width="${Math.min(ln,w-st)}" height="${bh}" rx="${bh/2}" fill="${pal[i%3]}" opacity=".85"/>`;}
-    s+=`<line x1="${x+w*0.62}" x2="${x+w*0.62}" y1="${y}" y2="${y+h}" stroke="${css('--danger')}" stroke-dasharray="3 3"/>`;
-  }
-  return s;
-}
-
-// ---------- gallery ----------
-let current = 'Todos';
-function renderFilters(){
-  document.getElementById('filters').innerHTML = AREAS.map(a=>`<button class="${a===current?'on':''}" data-a="${a}">${a}</button>`).join('');
-  document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{current=b.dataset.a;renderFilters();renderGrid();});
-}
-function renderGrid(){
-  const list = DASHES.filter(d=>current==='Todos'||d.area===current);
-  document.getElementById('grid').innerHTML = list.map(d=>{
-    const feat = d.featured && current==='Todos';
-    return `<button class="dash ${feat?'featured':''}" data-id="${d.id}">
-      <div class="thumb">${mock(d, feat?720:480, feat?290:300)}</div>
-      <div class="body"><span class="tag" style="color:${areaColor(d.area)}">${d.area}</span><h3>${d.title}</h3><p>${d.desc}</p>
-      <div class="meta"><span>▤ ${d.pagesN} páginas</span><span>◎ ${d.client}</span></div></div></button>`;}).join('');
-  document.querySelectorAll('.dash').forEach(el=>el.onclick=()=>openDash(el.dataset.id));
-}
-function openDash(id){
-  const d = DASHES.find(x=>x.id===id), m = document.getElementById('modal');
-  document.getElementById('mThumb').innerHTML = mock(d, 960, 440);
-  const tg = document.getElementById('mTag'); tg.textContent = d.area + ' · ' + d.client; tg.style.color = areaColor(d.area);
-  document.getElementById('mTitle').textContent = d.title;
-  document.getElementById('mDesc').textContent = d.desc;
-  document.getElementById('mHigh').innerHTML = d.high.map(h=>`<li>${h}</li>`).join('');
-  document.getElementById('mPages').innerHTML = d.pages.map(p=>`<span>${p}</span>`).join('');
-  document.getElementById('mStack').innerHTML = d.stack.map(p=>`<span>${p}</span>`).join('');
-  m.showModal();
-}
-document.getElementById('modal').addEventListener('click', e=>{ if(e.target.id==='modal') e.target.close(); });
-
 
 // ---------- skills ----------
 const SKILLS = [
@@ -719,11 +518,10 @@ const SKILLS = [
   {t:'Métodos & gestão', c:'--danger', i:[['Scrum / Kanban',90],['BPMN',85],['Git (PRs, issues)',85],['Lean Six Sigma',70]]},
 ];
 function renderSkills(){
-  document.getElementById('skillsGrid').innerHTML = SKILLS.map(g=>`<div class="skill reveal in"><h4><i style="background:var(${g.c})"></i>${g.t}</h4>${g.i.map(([n,v])=>`<div class="bar"><div><span style="all:unset">${n}</span></div><span><em style="background:var(${g.c})" data-w="${v}"></em></span></div>`).join('')}</div>`).join('');
+  document.getElementById('skillsGrid').innerHTML = SKILLS.map(g=>`<div class="skill reveal in"><h4><i style="background:var(${g.c})"></i>${g.t}</h4><div class="tool-chips">${g.i.map(([n])=>`<span style="--c:var(${g.c})">${n}</span>`).join('')}</div></div>`).join('');
 }
 
-function renderAll(){ renderFilters(); renderGrid(); }
-renderAll(); renderSkills();
+renderSkills();
 
 // ---------- acessibilidade ----------
 const A11Y_KEY = 'a11y', root = document.documentElement, panel = document.getElementById('a11yPanel'), a11yBtn = document.getElementById('a11yBtn');
@@ -735,7 +533,6 @@ function applyA11y(){
   ['contrast','readable','links','motion'].forEach(k => a11y[k] ? root.setAttribute('data-' + k, '') : root.removeAttribute('data-' + k));
   panel.querySelectorAll('input[data-opt]').forEach(i => i.checked = !!a11y[i.dataset.opt]);
   try { localStorage.setItem(A11Y_KEY, JSON.stringify(a11y)); } catch(e) {}
-  renderAll();
 }
 const closePanel = () => { panel.hidden = true; a11yBtn.setAttribute('aria-expanded', 'false'); };
 a11yBtn.onclick = () => { const open = panel.hidden; panel.hidden = !open; a11yBtn.setAttribute('aria-expanded', String(open)); if (open) panel.querySelector('button').focus(); };
@@ -756,8 +553,8 @@ const io = new IntersectionObserver(es=>es.forEach(e=>{ if(!e.isIntersecting) re
   e.target.querySelectorAll?.('em[data-w]').forEach(b=>b.style.width=b.dataset.w+'%'); io.unobserve(e.target); }),{threshold:.12});
 document.querySelectorAll('.reveal, .skill').forEach(el=>io.observe(el));
 document.querySelectorAll('[data-count]').forEach(el=>{
-  const end=+el.dataset.count, t0=performance.now(), dur=1400, plus=end>=100?'+':'';
-  const tick=t=>{const p=Math.min(1,(t-t0)/dur), v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent=v.toLocaleString('pt-BR')+(p===1?plus:'');if(p<1)requestAnimationFrame(tick);};
+  const end=+el.dataset.count, t0=performance.now(), dur=1400;
+  const tick=t=>{const p=Math.min(1,(t-t0)/dur), v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent='+'+v.toLocaleString('pt-BR');if(p<1)requestAnimationFrame(tick);};
   requestAnimationFrame(tick);
 });
 </script>
